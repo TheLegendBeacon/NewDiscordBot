@@ -10,7 +10,7 @@ class poll(commands.Cog):
   @commands.has_permissions(manage_messages=True)
   async def poll(self,ctx):
     if ctx.invoked_subcommand is None:
-      await ctx.send("Run `!poll help` (replace ! with prefix) for poll help")
+      await ctx.send(f"Run `!poll help` (replace ! with prefix) for poll help")
 
   @poll.command()
   async def YesOrNo(self,ctx, question, description="A Yes/No question"):

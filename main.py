@@ -14,8 +14,8 @@ def get_prefix(client, message):
     if prefixes[message.guild.id]:
         return prefixes[message.guild.id]
     else:
-        return "!"
         db.db_set_prefix(message.guild.id, "!")
+        return "!"
 
 
 # Some global vars

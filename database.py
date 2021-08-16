@@ -102,9 +102,31 @@ def read_all_welcome_messages():
   close_connection(conn, False)
   return returndata 
 
+def get_roles_by_server(guild_id):
+  conn = start_connection(df)
+  cursor = conn.cursor()  
+  returndata = {}
+  cursor.execute("select * from ReactionRoles where ServerID=?", (guild_id))
+  data = cursor.fetchall()
+  for x in data:
+    if not returndata[x[2]]:
+      returndata[x[2]] = [[x[3], x[4]]]
+    else:
+      returndata[x[2]].append([x[3], x[4]])
+  close_connection(conn, True)
+  return returndata
+
+def remove_role(role_id):
+  conn = start_connection(df)
+  cursor = conn.cursor()
+  cursor.execute("DELETE FROM ReactionRoles WHERE RoleID=?", (role_id))
+  close_connection(conn, True)
+
+
+
 def backup():
   os.remove("Databases/backup.db")
   conn = start_connection(df)
   cursor = conn.cursor()
   cursor.execute(".clone ?", (backup))
-  close_connection(conn, True)
+  close_connection(conn, True)  

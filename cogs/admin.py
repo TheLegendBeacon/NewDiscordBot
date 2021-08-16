@@ -65,5 +65,7 @@ class admin(commands.Cog):
     except db.DoesNotExist:
       await ctx.send("You do not have a welcome message.")
 
+  
+
 def setup(bot):
     bot.add_cog(admin(bot))
