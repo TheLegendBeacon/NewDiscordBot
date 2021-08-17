@@ -9,8 +9,8 @@ class misc(commands.Cog):
 
     @commands.command()
     # Sends a Direct Message to the member
-    async def DM(self,user: discord.Member, message):
-        await user.send(message)
+    async def DM(self, ctx, user: discord.Member, *args):
+        await user.send(''.join(args))
 
     @commands.command()
     # For testing purposes. Says Hi when executed

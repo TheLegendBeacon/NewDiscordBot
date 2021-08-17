@@ -7,13 +7,31 @@ class poll(commands.Cog):
     self.bot = bot
 
   @commands.group(name='poll')
-  @commands.has_permissions(manage_messages=True)
-  async def poll(self,ctx):
-    if ctx.invoked_subcommand is None:
-      await ctx.send(f"Run `!poll help` (replace ! with prefix) for poll help")
+  #@commands.has_permissions(manage_messages=True)
+  async def poll(self,ctx, question, *args):
+    '''
+    Creates an embed with question and the options. Usage: !poll <question here in double quotes> <options seperated by '/'> <optional description>
+    '''
+    options = list(args)
+    if 0 < len(options) <= 9:
+      embed=discord.Embed(title=f"{question}", description=f"Poll - by {ctx.author.mention}", color=0x04ff00)
+      emojiCheck = 0
+      for option in options:
+        emoji = text.listOfEmojis[emojiCheck]
+        value = '-'*(len(option)+7)
+        embed.add_field(name=f"{emoji} {option}", value=value, inline=True)
+        emojiCheck = emojiCheck + 1
+      embed.set_footer(text="React with the corresponding emoji's to vote.")
+      message = await ctx.send(embed=embed)
+      reactionCheck = 0
+      while reactionCheck < emojiCheck:
+        await message.add_reaction(text.listOfEmojis[reactionCheck])
+        reactionCheck = reactionCheck + 1
+    else:
+      await ctx.send('Send between 0 and 11 options, or I will explode and kill you.')
 
   @poll.command()
-  async def YesOrNo(self,ctx, question, description="A Yes/No question"):
+  async def YorN(self,ctx, question, description="A Yes/No question"):
     embed=discord.Embed(title=f"{question}", description=f'{description} - by {ctx.author.mention}', color=0x04ff00)
     embed.add_field(name="Yes", value=":green_circle:", inline=True)
     embed.add_field(name="No", value=":red_circle:", inline=True)
@@ -61,7 +79,6 @@ class poll(commands.Cog):
     ''')
     embed.set_footer(text="By TheLegendBeacon")
     await ctx.send(embed=embed)
-
 
 def setup(bot):
      bot.add_cog(poll(bot))
