@@ -122,9 +122,11 @@ def remove_role(role_id):
   cursor.execute("DELETE FROM ReactionRoles WHERE RoleID=?", (role_id))
   close_connection(conn, True)
 
+
+
 def backup():
   os.remove("Databases/backup.db")
   conn = start_connection(df)
   cursor = conn.cursor()
   cursor.execute(".clone ?", (backup))
-  close_connection(conn, True)
+  close_connection(conn, True)  

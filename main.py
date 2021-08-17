@@ -4,7 +4,6 @@ from discord.ext import commands, tasks
 import database as db
 import jishaku
 import os
-from dotenv import load_dotenv
 
 prefixes = db.read_all_prefix()
 
@@ -20,7 +19,6 @@ def get_prefix(client, message):
 
 
 # Some global vars
-load_dotenv()
 token = os.getenv("DISCORD-TOKEN")
 my_id = os.getenv("MY-DISCORD-ID")
 cogs = [
@@ -30,7 +28,7 @@ cogs = [
 
 intents = discord.Intents.default()
 intents.members = True
-client = commands.Bot(command_prefix=get_prefix, intents=intents, description="Weirdo Bot. Made by TheLegendBeacon#2052")
+client = commands.Bot(command_prefix=get_prefix, intents=intents)
 client.prefixes = {}
 client.welcome_messages = {}
 

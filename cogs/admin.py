@@ -10,14 +10,14 @@ class admin(commands.Cog):
   @commands.has_permissions(manage_messages=True)
   async def deletemax(self, ctx, num=None):
     if num == None:
-      await ctx.send("Please send a valid number between 1 and 100, or `max`.")
+      await ctx.send("Please send a valid number between 1 and 1000, or `max`.")
     elif num == "max":
-      await ctx.channel.purge(limit=100)
+      await ctx.channel.purge(limit=2000)
     elif isinstance(num, int):
-      if 1 <= num <= 100:
+      if 1 <= num <= 2000:
         await ctx.channel.purge(limit=num)
       else:
-        await ctx.send("Please send a valid number between 1 and 100, or `max`.")
+        await ctx.send("Please send a valid number between 1 and 2000, or `max`.")
 
   @commands.command(name='kick')
   @commands.has_permissions(kick_members=True)
@@ -30,7 +30,7 @@ class admin(commands.Cog):
 
   @commands.command(name='ban')
   @commands.has_permissions(ban_members=True)
-  async def ban(self, ctx, member: discord.Member, *, reason='chuck\'d'):
+  async def ban(self,ctx, member: discord.Member, *, reason='chuck\'d'):
       await member.ban(reason=reason)
 
   @commands.command(name='prefix', alias=['changeprefix'])
@@ -65,7 +65,7 @@ class admin(commands.Cog):
     except db.DoesNotExist:
       await ctx.send("You do not have a welcome message.")
 
-
+  
 
 def setup(bot):
     bot.add_cog(admin(bot))
