@@ -1,8 +1,7 @@
 import sqlite3
 import os
 
-df = "Databases/data.db"
-backup = "Databases/backup.db"
+df = "data.db"
 
 class DoesNotExist(Exception):
   pass
